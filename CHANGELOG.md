@@ -1,5 +1,11 @@
 # Change Log
 
+### v2.1.16 (Nov 16, 2021)
+* Updated chat SDK Swift package to **v3.0.208**
+
+### v2.1.15 (Nov 16, 2021)
+* Improved stability
+
 ### v2.1.14 (Nov 1, 2021)
 * Fixed issue on navigation bar in iOS 15
     * Added `sbu_setupNavigationBarAppearance(tintColor:)`
