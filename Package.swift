@@ -4,31 +4,31 @@
 import PackageDescription
 
 let package = Package(
-    name: "SendBirdUIKit",
+    name: "SendbirdUIKit",
     platforms: [.iOS(.v11)],
     products: [
         .library(
-            name: "SendBirdUIKit",
-            targets: ["SendBirdUIKitTarget"]
+            name: "SendbirdUIKit",
+            targets: ["SendbirdUIKitTarget"]
         ),
     ],
     dependencies: [
         .package(
             name: "SendBirdSDK",
             url: "https://github.com/sendbird/sendbird-chat-ios-spm",
-            from: "3.1.7"
+            from: "3.1.12"
         ),
     ],
     targets: [
         .binaryTarget(
-            name: "SendBirdUIKit",
-            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v2.2.6/SendBirdUIKit.xcframework.zip",
-            checksum: "a05d57b75f68e75bf9842e19121bd40f329e29f456b7f48a4b3c080f980655b7"
+            name: "SendbirdUIKit",
+            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v3.0.0-beta/SendbirdUIKit.xcframework.zip",
+            checksum: "d12e2c2cd71d05c6184d4bd947cbb19dd2b67a177c3d4be22b47b75c8059ea16"
         ),
         .target(
-            name: "SendBirdUIKitTarget",
+            name: "SendbirdUIKitTarget",
             dependencies: [
-                .target(name: "SendBirdUIKit"),
+                .target(name: "SendbirdUIKit"),
                 .product(name: "SendBirdSDK", package: "SendBirdSDK")
             ],
             path: "Sources"
