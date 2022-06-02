@@ -22,7 +22,7 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "SendBirdUIKit",
-            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v2.2.6/SendBirdUIKit.xcframework.zip",
+            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v2.2.7/SendBirdUIKit.xcframework.zip",
             checksum: "04f3fc751c6b109d82ff1d284c82194c6404dd06b90592ec21e2c4e835bddb1a"
         ),
         .target(
