@@ -94,7 +94,7 @@ UIKit for iOS can be installed through either [`CocoaPods`](https://cocoapods.or
 https://github.com/sendbird/sendbird-uikit-ios-spm.git
 ```
 
-3. To add the package, select **Branch Rules**, input `main-beta` and click **Next**.
+3. To add the package, select **Branch Rules**, input `main` and click **Next**.
 
 #### - CocoaPods
 
@@ -105,7 +105,7 @@ platform :ios, '11.0'
 use_frameworks!
 
 target YOUR_PROJECT_TARGET do
-	pod 'SendbirdUIKit', '~> 3.0.0-beta.2' // Add this line.
+	pod 'SendbirdUIKit' // Add this line.
 end
 ```
 
@@ -127,7 +127,7 @@ $ pod update
 
 ```bash
 github "sendbird/sendbird-uikit-ios"
-github "sendbird/sendbird-ios-framework" == 3.1.13
+github "sendbird/sendbird-chat-sdk-ios"
 ```
 
 2. Install the `SendbirdUIKit` framework through `Carthage`.
