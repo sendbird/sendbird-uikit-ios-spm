@@ -1,5 +1,17 @@
 # Changelog
 
+### v3.2.3 (Nov 15, 2022)
+
+> **IMPORTANT** If you use Swift Package Manager, Please *reset package cache* before download the current version.
+
+* Opened keyboard events: `keyboardWillShow(_:)` and  `keyboardWillHide(_:)`
+* Updated `navigationBar` shadowColor
+* Modified the type of class that includes the `UIControl` type object to `NSObject`
+* Improved logic to update the 'startPoint' in the channel
+* Improved logic moving to the original message of a quoted message
+* Improved channel initialization process.
+* Improved stability
+
 ### v3.2.2 (Oct 28, 2022) with Chat SDK **v4.1.2**
 * Fixed `scrollToBottom` button flickers when send a message
 * Improved fileMessage related processing
@@ -13,7 +25,7 @@
   * `SBUGroupChannelCellTheme`
     * Added `fileIconBackgroundColor`, `fileIconTintColor`
   * `SBUOpenChannelCellTheme`
-    * `participantCountFont`: light(`SBUColorSet.caption1` -> `SBUColorSet.caption2`)
+    * `participantCountFont`: light(`SBUFontSet.caption1` -> `SBUFontSet.caption2`)
   * `SBUChannelTheme`
     * Added `openChannelOGTitleColor`, `buttonBackgroundColor`, `buttonTitleColor`, `sideButtonIconColor`, `newMessageBadgeColor`
     * `menuItemDisabledColor`: light(`SBUColorSet.ondark04` -> `SBUColorSet.onlight04`) 
@@ -28,6 +40,17 @@
     * `cellDescriptionTextFont` (subtitle3 -> body3)
   * `SBUCreateOpenChannelTheme`
     * `textFieldFont` (body3 -> subtitle1)
+  * Please add the code below in `AppDelegate` or `SceneDelegate` to use the values before the change.
+    ```
+    SBUTheme.groupChannelListTheme.notificationOnTintColor = SBUColorSet.background50
+    SBUTheme.openChannelCellTheme.participantCountFont = SBUFontSet.caption1
+    SBUTheme.channelTheme.menuItemDisabledColor = SBUColorSet.ondark04
+    SBUTheme.channelTheme.mentionLimitGuideTextFont = SBUFontSet.body1
+    SBUTheme.channelSettingsTheme.userNameFont = SBUFontSet.subtitle1
+    SBUTheme.channelSettingsTheme.urlFont = SBUFontSet.body3
+    SBUTheme.channelSettingsTheme.cellDescriptionTextFont = SBUFontSet.subtitle3
+    SBUTheme.createOpenChannelTheme.textFieldFont = SBUFontSet.body3
+    ```
 * Fixed bcsymbolmap issue for SPM
 
 ### v3.2.1 (Oct 13, 2022) with Chat SDK **v4.0.15**
@@ -41,6 +64,9 @@
 * Improved stability
 
 ### v3.2.0 (Sep 21, 2022) with Chat SDK **v4.0.13**
+
+> **IMPORTANT** If you use Swift Package Manager, Please *reset package cache* before download the current version.
+
 * Support **Open channel list** features
     * Added classes
         * `SBUOpenChannelListViewController`
@@ -190,41 +216,41 @@
 * Added `messageInputView(_:willChangeMode:message:mentionManager:)` to `SBUGroupChannelModule.Input`
 * Changed `SBUMessageInputView option` to read-only
 * Renamed `SBUStringSet`
-	* `ChannelSettings_Banned_Members` to `ChannelSettings_Banned_Users`
-	* `Empty_No_Banned_Members` to `Empty_No_Banned_Users`
-	* `InviteChannel_Header_Select_Members` to `InviteChannel_Header_Select_Users`
-	* `InviteChannel_Add` to `InviteChannel_Register`
-	* `MemberList_Me` to `UserList_Me`
-	* `MemberList_Ban` to `UserList_Ban`
-	* `MemberList_Unban` to `UserList_Unban`
-	* `MemberList_Mute` to `UserList_Mute`
-	* `MemberList_Unmute` to `UserList_Unmute`
-	* `MemberList_Dismiss_Operator` to `UserList_Unregister_Operator`
-	* `MemberList_Promote_Operator` to `UserList_Register_Operator`
-	* `MemberList_Title_Members` to `UserList_Title_Members`
-	* `MemberList_Title_Operators` to `UserList_Title_Operators`
-	* `MemberList_Title_Muted_Members` to `UserList_Title_Muted_Members`
-	* `MemberList_Title_Banned_Members` to `UserList_Title_Banned_Users`
-	* `MemberList_Title_Participants` to `UserList_Title_Participants`
-	* `UserProfile_Promote` to `UserProfile_Register`
-	* `UserProfile_Dismiss` to `UserProfile_Unregister`
+    * `ChannelSettings_Banned_Members` to `ChannelSettings_Banned_Users`
+    * `Empty_No_Banned_Members` to `Empty_No_Banned_Users`
+    * `InviteChannel_Header_Select_Members` to `InviteChannel_Header_Select_Users`
+    * `InviteChannel_Add` to `InviteChannel_Register`
+    * `MemberList_Me` to `UserList_Me`
+    * `MemberList_Ban` to `UserList_Ban`
+    * `MemberList_Unban` to `UserList_Unban`
+    * `MemberList_Mute` to `UserList_Mute`
+    * `MemberList_Unmute` to `UserList_Unmute`
+    * `MemberList_Dismiss_Operator` to `UserList_Unregister_Operator`
+    * `MemberList_Promote_Operator` to `UserList_Register_Operator`
+    * `MemberList_Title_Members` to `UserList_Title_Members`
+    * `MemberList_Title_Operators` to `UserList_Title_Operators`
+    * `MemberList_Title_Muted_Members` to `UserList_Title_Muted_Members`
+    * `MemberList_Title_Banned_Members` to `UserList_Title_Banned_Users`
+    * `MemberList_Title_Participants` to `UserList_Title_Participants`
+    * `UserProfile_Promote` to `UserProfile_Register`
+    * `UserProfile_Dismiss` to `UserProfile_Unregister`
 * Added new `SBUStringSet`
-	* `UserList_Title_Muted_Participants`
-	* `Empty_No_Muted_Participants`
+    * `UserList_Title_Muted_Participants`
+    * `Empty_No_Muted_Participants`
 * Removed unused `SBUStringSet`
-	* `MemberList_Header_Title`
+    * `MemberList_Header_Title`
 * Renamed `SBUEnums`
-	* `ChannelMemberListType` to `ChannelUserListType`
-	* `channelMembers`, `mutedMembers`, `bannedMembers` to `members`, `muted`, `banned` in `ChannelMemberListType`
-	* `bannedMembers` to `bannedUsers` in `ModerationItemType`
-	* `channelMembers`, `inviteUser`, `mutedMembers`, `bannedMembers` to `members`, `invite`, `muted`, `banned` in `UserListType`
-	* `noBannedMembers` to `noBannedUsers` in `EmptyViewType`
+    * `ChannelMemberListType` to `ChannelUserListType`
+    * `channelMembers`, `mutedMembers`, `bannedMembers` to `members`, `muted`, `banned` in `ChannelMemberListType`
+    * `bannedMembers` to `bannedUsers` in `ModerationItemType`
+    * `channelMembers`, `inviteUser`, `mutedMembers`, `bannedMembers` to `members`, `invite`, `muted`, `banned` in `UserListType`
+    * `noBannedMembers` to `noBannedUsers` in `EmptyViewType`
 * Renamed `SBUMemberListViewController` to `SBUUserListViewController`
 * Renamed properties, functions in `SBUMemberListViewController`
-	* `memberList`, `memberListType` to `userList`, `userListType`
-	* `init(channel:memberListType:)` to `init(channel:userListType:)`
-	* `init(channel:members:type:)` to `init(channel:users:userListType:)`
-	* `init(channelURL:channelType:members:memberListType:)` to `init(channelURL:channelType:users:userListType:)`
+    * `memberList`, `memberListType` to `userList`, `userListType`
+    * `init(channel:memberListType:)` to `init(channel:userListType:)`
+    * `init(channel:members:type:)` to `init(channel:users:userListType:)`
+    * `init(channelURL:channelType:members:memberListType:)` to `init(channelURL:channelType:users:userListType:)`
 
 ### v3.0.0-beta.4 (Jun 21, 2022)
 * Modified some view to be able to change its date format
