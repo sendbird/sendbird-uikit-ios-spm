@@ -14,6 +14,10 @@ With the official release of the v3 version, the name of the `master` branch was
 * v3: `main`
 * v2: `main-v2`
 
+> __NOTE__: If you encounter a checksum problem when adding or resetting a package, please remove the spm cache from the terminal and add it again.
+```
+rm -rf ~/Library/Caches/org.swift.swiftpm/repositories/sendbird-uikit-ios*    
+```
 
 ## Table of contents
 
