@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
 // swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name SendbirdChatSDK
 import CommonCrypto
 import CoreFoundation
@@ -574,6 +574,7 @@ extension SendbirdChatSDK.PreviousMessageListQuery {
   case eventPollUpdated
   case eventPollVoted
   case eventPollChangeLog
+  case eventPinnedMessageUpdated
   public init?(rawValue: Swift.Int)
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
@@ -794,6 +795,10 @@ extension SendbirdChatSDK.GroupChannelListQuery {
   @objc dynamic public var order: SendbirdChatSDK.GroupChannelListOrder {
     @objc get
   }
+}
+@objc extension SendbirdChatSDK.GroupChannel {
+  @objc dynamic open func pinMessage(messageId: Swift.Int64, completionHandler: SendbirdChatSDK.SBErrorHandler?)
+  @objc dynamic open func unpinMessage(messageId: Swift.Int64, completionHandler: SendbirdChatSDK.SBErrorHandler?)
 }
 @objc(SBDOGMetaData) public class OGMetaData : ObjectiveC.NSObject, Swift.Codable {
   @objc final public let title: Swift.String?
@@ -1931,6 +1936,12 @@ extension SendbirdChatSDK.GroupChannel {
   @objc open func getMember(_ userId: Swift.String) -> SendbirdChatSDK.Member?
   @objc open func getInviter() -> SendbirdChatSDK.User?
   @objc open func myDeliveryStatus() -> Swift.Int64
+  @objc open var pinnedMessageIds: [Swift.Int64]? {
+    get
+  }
+  @objc open var lastPinnedMessage: SendbirdChatSDK.BaseMessage? {
+    get
+  }
   @objc open class func compare(channelA: SendbirdChatSDK.GroupChannel, channelB: SendbirdChatSDK.GroupChannel, order: SendbirdChatSDK.GroupChannelListOrder) -> Swift.Bool
   required public init(from decoder: Swift.Decoder) throws
   override public func encode(to encoder: Swift.Encoder) throws
@@ -2654,6 +2665,7 @@ extension SendbirdChatSDK.GroupChannelCollection : SendbirdChatSDK.GroupChannelD
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.BaseChannel, createdMetaCounters: [Swift.String : Swift.Int]?)
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.BaseChannel, updatedMetaCounters: [Swift.String : Swift.Int]?)
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.BaseChannel, deletedMetaCountersKeys: [Swift.String]?)
+  @objc dynamic open func channelDidUpdatePinnedMessages(_ channel: SendbirdChatSDK.GroupChannel)
 }
 @objc extension SendbirdChatSDK.GroupChannel {
   @objc dynamic open func inviteUser(_ user: SendbirdChatSDK.User, completionHandler: SendbirdChatSDK.SBErrorHandler?)
@@ -3408,6 +3420,7 @@ extension Swift.Decodable {
   @objc optional func channel(_ channel: SendbirdChatSDK.GroupChannel, didUpdatePoll event: SendbirdChatSDK.PollUpdateEvent)
   @objc optional func channel(_ channel: SendbirdChatSDK.GroupChannel, didVotePoll event: SendbirdChatSDK.PollVoteEvent)
   @objc optional func channel(_ channel: SendbirdChatSDK.GroupChannel, pollWasDeleted pollId: Swift.Int64)
+  @objc optional func channelDidUpdatePinnedMessages(_ channel: SendbirdChatSDK.GroupChannel)
 }
 @_inheritsConvenienceInitializers @objc(SBDPollOptionRetrievalParams) public class PollOptionRetrievalParams : ObjectiveC.NSObject {
   @objc public var pollId: Swift.Int64
@@ -3898,6 +3911,7 @@ extension SendbirdChatSDK.FriendListQuery {
   @objc public var isReplyToChannel: Swift.Bool
   @objc public var appleCriticalAlertOptions: SendbirdChatSDK.AppleCriticalAlertOptions?
   @objc public var payload: [Swift.String : Any]
+  @objc public var isPinnedMessage: Swift.Bool
   @objc override dynamic public init()
   @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
   public func encode(to encoder: Swift.Encoder) throws
