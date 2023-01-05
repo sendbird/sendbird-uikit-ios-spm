@@ -16,14 +16,14 @@ let package = Package(
         .package(
             name: "SendBirdSDK",
             url: "https://github.com/sendbird/sendbird-chat-ios-spm",
-            from: "3.1.33"
+            from: "3.1.39"
         ),
     ],
     targets: [
         .binaryTarget(
             name: "SendBirdUIKit",
-            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v2.2.11/SendBirdUIKit.xcframework.zip",
-            checksum: "c038ebde597000174b15c69d2d9ed4eed680244b439f8cfeb983a549afea01ca"
+            url: "https://github.com/sendbird/sendbird-uikit-ios/releases/download/v2.2.12/SendBirdUIKit.xcframework.zip",
+            checksum: "8a12fa6572433e73ae1b7bcbd6c46e0195ece289d8054e5364e4bd7933a6abca"
         ),
         .target(
             name: "SendBirdUIKitTarget",
