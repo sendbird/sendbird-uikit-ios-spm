@@ -177,6 +177,9 @@ extension SendbirdChatSDK.PollVoterListQueryParams : Swift.Encodable {
   @objc open var messageParams: SendbirdChatSDK.BaseMessageCreateParams? {
     get
   }
+  public var extendedMessage: [Swift.String : Any] {
+    get
+  }
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
   public typealias ID = Swift.AnyHashable
