@@ -5,6 +5,7 @@ import CommonCrypto
 import CoreFoundation
 import CoreGraphics
 import Foundation
+import Foundation/*.Data*/
 import MobileCoreServices
 import Network
 import SQLite3
@@ -175,6 +176,9 @@ extension SendbirdChatSDK.PollVoterListQueryParams : Swift.Encodable {
     get
   }
   @objc open var messageParams: SendbirdChatSDK.BaseMessageCreateParams? {
+    get
+  }
+  public var extendedMessage: [Swift.String : Any] {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
@@ -367,6 +371,7 @@ extension SendbirdChatSDK.MessageCollection : SendbirdChatSDK.GroupChannelDelega
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.BaseChannel, deletedMetaCountersKeys: [Swift.String]?)
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.GroupChannel, didUpdatePoll event: SendbirdChatSDK.PollUpdateEvent)
   @objc dynamic open func channel(_ channel: SendbirdChatSDK.GroupChannel, didVotePoll event: SendbirdChatSDK.PollVoteEvent)
+  @objc dynamic open func channelDidUpdatePinnedMessages(_ channel: SendbirdChatSDK.GroupChannel)
 }
 @objc(SBDInitParams) public class InitParams : ObjectiveC.NSObject {
   @objc public var applicationId: Swift.String
@@ -525,6 +530,14 @@ extension SendbirdChatSDK.BaseChannel {
   public func getMessageChangeLogs(withToken: Swift.String?, completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
   @available(*, unavailable, renamed: "getMessageChangeLogs(timestamp:params:completionHandler:)")
   public func getMessageChangeLogs(byTimestamp: Swift.Int64, completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
+}
+@_hasMissingDesignatedInitializers @objc(SBDParticipant) public class Participant : SendbirdChatSDK.User {
+  @objc public var isMuted: Swift.Bool {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  override public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
 }
 extension SendbirdChatSDK.PreviousMessageListQuery {
   @available(*, unavailable, message: "Use `loadNextPage(completionHandler:)` instead")
@@ -2722,6 +2735,7 @@ extension SendbirdChatSDK.GroupChannelCollection : SendbirdChatSDK.GroupChannelD
   case parameterMissing = 400402
   case invalidJsonBody = 400403
   case conflict = 409000
+  case statUploadNotAllowed = 403200
   case internalServerError = 500901
   case rateLimitExceeded = 500910
   case unknownError = 800000
@@ -2893,8 +2907,12 @@ extension SendbirdChatSDK.MutedUserListQuery {
   @objc public class func removeSessionDelegate()
   @objc public class func getPendingPushToken() -> Foundation.Data?
   @objc public class func registerDevicePushToken(_ devToken: Foundation.Data, unique: Swift.Bool, completionHandler: ((_ registrationStatus: SendbirdChatSDK.PushTokenRegistrationStatus, _ error: SendbirdChatSDK.SBError?) -> Swift.Void)? = nil)
+  @available(*, deprecated, message: "This method is deprecated in 4.2.4. Please use `unregisterPushToken(_ pushToken: Data, completionHandler: SBErrorHandler?)`")
   @objc public class func unregisterPushToken(_ devToken: Foundation.Data, completionHandler: ((_ response: [Swift.AnyHashable : Any]?, _ error: SendbirdChatSDK.SBError?) -> Swift.Void)? = nil)
+  @objc(unregisterPushToken:completion:) public class func unregisterPushToken(_ pushToken: Foundation.Data, completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
+  @available(*, deprecated, message: "This method is deprecated in 4.2.4. Please use `unregisterAllPushToken(completionHandler: SBErrorHandler?)`")
   @objc public class func unregisterAllPushToken(completionHandler: ((_ response: [Swift.AnyHashable : Any]?, _ error: SendbirdChatSDK.SBError?) -> Swift.Void)? = nil)
+  @objc(unregisterAllPushTokenWithCompletion:) public class func unregisterAllPushToken(completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
   @objc(getMyPushTokensWithToken:pushTokenType:completionHandler:) public class func getMyPushTokens(token: Swift.String?, pushTokenType: SendbirdChatSDK.PushTokenType, completionHandler: @escaping SendbirdChatSDK.GetPushTokensHandler)
   @objc public class func setDoNotDisturb(enable: Swift.Bool, startHour: Swift.Int32, startMin: Swift.Int32, endHour: Swift.Int32, endMin: Swift.Int32, timezone: Swift.String, completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
   @objc public class func getDoNotDisturb(completionHandler: ((_ enabled: Swift.Bool, _ startHour: Swift.Int, _ startMin: Swift.Int, _ endHour: Swift.Int, _ endMin: Swift.Int, _ timezone: Swift.String, _ error: SendbirdChatSDK.SBError?) -> Swift.Void)? = nil)
@@ -2932,8 +2950,8 @@ extension SendbirdChatSDK.MutedUserListQuery {
   @objc public class func markAsReadAll(completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
   @objc public class func markAsRead(channelURLs: [Swift.String], completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
   @objc public class func markAsDelivered(remoteNotificationPayload: [Swift.AnyHashable : Any], completionHandler: SendbirdChatSDK.SBErrorHandler? = nil)
-  @objc(getMyGroupChannelChangeLogsWithToken:params:completionHandler:) public class func getMyGroupChannelChangeLogs(token: Swift.String?, params: SendbirdChatSDK.GroupChannelChangeLogsParams, completionHandler: @escaping SendbirdChatSDK.ChannelChangeLogsHandler)
-  @objc(getMyGroupChannelChangeLogsWithTimestamp:params:completionHandler:) public class func getMyGroupChannelChangeLogs(timestamp: Swift.Int64, params: SendbirdChatSDK.GroupChannelChangeLogsParams, completionHandler: @escaping SendbirdChatSDK.ChannelChangeLogsHandler)
+  @objc(getMyGroupChannelChangeLogsWithToken:params:completionHandler:) public class func getMyGroupChannelChangeLogs(token: Swift.String?, params: SendbirdChatSDK.GroupChannelChangeLogsParams = GroupChannelChangeLogsParams(), completionHandler: @escaping SendbirdChatSDK.ChannelChangeLogsHandler)
+  @objc(getMyGroupChannelChangeLogsWithTimestamp:params:completionHandler:) public class func getMyGroupChannelChangeLogs(timestamp: Swift.Int64, params: SendbirdChatSDK.GroupChannelChangeLogsParams = GroupChannelChangeLogsParams(), completionHandler: @escaping SendbirdChatSDK.ChannelChangeLogsHandler)
   @objc public class func getLogLevel() -> SendbirdChatSDK.LogLevel
   @objc public class func setLogLevel(_ logLevel: SendbirdChatSDK.LogLevel)
   @objc public class func getMimeType(_ file: Foundation.Data?) -> Swift.String?
@@ -3407,6 +3425,42 @@ extension SendbirdChatSDK.Thumbnail : SendbirdChatSDK.Serializable {
 extension Swift.Decodable {
   public static func make(_ json: [Swift.AnyHashable : Any]) -> Self?
 }
+public enum Gzip {
+  public static let maxWindowBits: Swift.Int32
+}
+public struct CompressionLevel : Swift.RawRepresentable {
+  public let rawValue: Swift.Int32
+  public static let noCompression: SendbirdChatSDK.CompressionLevel
+  public static let bestSpeed: SendbirdChatSDK.CompressionLevel
+  public static let bestCompression: SendbirdChatSDK.CompressionLevel
+  public static let defaultCompression: SendbirdChatSDK.CompressionLevel
+  public init(rawValue: Swift.Int32)
+  public init(_ rawValue: Swift.Int32)
+  public typealias RawValue = Swift.Int32
+}
+public struct GzipError : Swift.Error {
+  public enum Kind : Swift.Equatable {
+    case stream
+    case data
+    case memory
+    case buffer
+    case version
+    case unknown(code: Swift.Int)
+    public static func == (a: SendbirdChatSDK.GzipError.Kind, b: SendbirdChatSDK.GzipError.Kind) -> Swift.Bool
+  }
+  public let kind: SendbirdChatSDK.GzipError.Kind
+  public let message: Swift.String
+  public var localizedDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.Data {
+  public var isGzipped: Swift.Bool {
+    get
+  }
+  public func gzipped(level: SendbirdChatSDK.CompressionLevel = .defaultCompression, wBits: Swift.Int32 = Gzip.maxWindowBits + 16) throws -> Foundation.Data
+  public func gunzipped(wBits: Swift.Int32 = Gzip.maxWindowBits + 32) throws -> Foundation.Data
+}
 @objc(SBDGroupChannelDelegate) public protocol GroupChannelDelegate : SendbirdChatSDK.BaseChannelDelegate {
   @objc optional func channelDidUpdateReadStatus(_ channel: SendbirdChatSDK.GroupChannel)
   @objc optional func channelDidUpdateDeliveryStatus(_ channel: SendbirdChatSDK.GroupChannel)
@@ -3511,8 +3565,8 @@ extension SendbirdChatSDK.GroupChannel {
   @objc(updateScheduledUserMessageWithScheduledMessageId:userMessageParams:completionHandler:) dynamic open func updateScheduledUserMessage(scheduledMessageId: Swift.Int64, params: SendbirdChatSDK.ScheduledUserMessageUpdateParams, completionHandler: SendbirdChatSDK.UserMessageHandler?)
 }
 @objc extension SendbirdChatSDK.BaseChannel {
-  @objc(getMessageChangeLogsSinceToken:params:completionHandler:) dynamic open func getMessageChangeLogs(token: Swift.String?, params: SendbirdChatSDK.MessageChangeLogsParams, completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
-  @objc(getMessageChangeLogsSinceTimestamp:params:completionHandler:) dynamic open func getMessageChangeLogs(timestamp: Swift.Int64, params: SendbirdChatSDK.MessageChangeLogsParams, completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
+  @objc(getMessageChangeLogsSinceToken:params:completionHandler:) dynamic open func getMessageChangeLogs(token: Swift.String?, params: SendbirdChatSDK.MessageChangeLogsParams = MessageChangeLogsParams(), completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
+  @objc(getMessageChangeLogsSinceTimestamp:params:completionHandler:) dynamic open func getMessageChangeLogs(timestamp: Swift.Int64, params: SendbirdChatSDK.MessageChangeLogsParams = MessageChangeLogsParams(), completionHandler: SendbirdChatSDK.MessageChangeLogHandler?)
 }
 @_hasMissingDesignatedInitializers @objc(SBDRestrictedUser) public class RestrictedUser : SendbirdChatSDK.User {
   @objc public var restrictionInfo: SendbirdChatSDK.RestrictionInfo? {
@@ -3604,6 +3658,8 @@ extension SendbirdChatSDK.GroupChannel {
   @objc public class func setFileTransferTimeout(_ timeout: Swift.Int)
   @objc public class func getWebSocketResponseTimeout() -> Foundation.TimeInterval
   @objc public class func setWebSocketResponseTimeout(_ timeout: Swift.Int)
+  @objc public class func setSessionTokenRefreshTimeout(_ timeout: Swift.Int)
+  @objc public class func getSessionTokenRefreshTimeout() -> Foundation.TimeInterval
   @objc override dynamic public init()
   @objc deinit
 }
