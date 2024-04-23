@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SendbirdUIKit",
-    platforms: [.iOS(.v11)],
+    platforms: [.iOS(.v12)],
     products: [
         .library(
             name: "SendbirdUIKit",
