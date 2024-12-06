@@ -44,7 +44,7 @@ let package = Package(
             exclude: ["../../Sources"]
         ),
         .target(
-            name: "SendbirdUIKitTarget",
+            name: "SendbirdUIMessageTemplateTarget",
             dependencies: [
                 .target(name: "SendbirdUIKit"),
                 .product(name: "SendbirdChatSDK", package: "SendbirdChatSDK")
