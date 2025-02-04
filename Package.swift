@@ -47,6 +47,7 @@ let package = Package(
         .target(
             name: "SendbirdUIMessageTemplateTarget",
             dependencies: [
+                .target(name: "SendbirdUIMessageTemplate"),
                 .product(name: "SendbirdChatSDK", package: "SendbirdChatSDK")
             ],
             path: "Framework/Module/MessageTemplate",
