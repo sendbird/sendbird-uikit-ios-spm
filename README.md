@@ -58,8 +58,8 @@ This section shows the prerequisites you need to check to use Sendbird UIKit for
 
 The minimum requirements for Sendbird UIKit for iOS are:
 
-- iOS 12+
-- Swift 5.0+
+- iOS 13+
+- Swift 5.10+
 - Sendbird Chat SDK for iOS 4.23.1+
 
 <br />
@@ -146,8 +146,6 @@ $ carthage update --use-xcframeworks
 > __Note__: Building or creating the `SendbirdUIKit` framework with `Carthage` can only be done using the latest `Swift`. If your `Swift` is not the most recent version, the framework should be copied into your project manually.
 
 3. Go to your Xcode project target's **General settings** tab in the `Frameworks and Libraries` section. Then drag and drop `SendbirdUIKit.framework` from the `<YOUR_XCODE_PROJECT_DIRECTORY>/Carthage/Build` folder.
-
->__Note__: Errors may occur if you're building your project with Xcode 11.3 or earlier versions. To fix these errors, refer to [Handle errors caused by unknown attributes](https://github.com/sendbird/sendbird-uikit-ios#--handle-errors-caused-by-unknown-attributes).
 
 ### Get attachment permission
 
