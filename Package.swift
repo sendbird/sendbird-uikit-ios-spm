@@ -20,7 +20,8 @@ let package = Package(
         .package(
             name: "SendbirdChatSDK",
             url: "https://github.com/sendbird/sendbird-chat-sdk-ios",
-            .exact("4.25.2-beta.1")
+            branch: "release/4.25.2-beta"
+//            .exact("4.25.2-beta.1")
         ),
     ],
     targets: [
