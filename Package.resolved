@@ -1,13 +1,13 @@
 {
-  "originHash" : "0decf296e1aa4692b730d66abdaae6fc7f1f16dd95ad7ff6903cdb434778e5d0",
+  "originHash" : "8ceb650b47a9936a29bad6c645a876d59893b02bd62187f400b6e9e5d11c4530",
   "pins" : [
     {
       "identity" : "sendbird-chat-sdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sendbird/sendbird-chat-sdk-ios",
       "state" : {
-        "branch" : "release/4.25.3-beta.1",
-        "revision" : "0ed783c05d9d16dd731e121ea3e36b31c8a32720"
+        "branch" : "release/4.25.3-beta.2",
+        "revision" : "44dc9526752826e50ba7e5b1bd5f7d7f254de65b"
       }
     }
   ],
