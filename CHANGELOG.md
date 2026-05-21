@@ -1,32 +1,33 @@
 # Changelog
 
+### v3.35.3 (May 21, 2026)
+
+### Improvements
+  - Fixed the Liquid Glass create-channel `UIMenu` on `SBUGroupChannelListViewController`'s
+  right-bar button so it respects dashboard configuration and the
+  `enableCreateChannelTypeSelector` flag. Super group and broadcast actions are now omitted when
+  `SBUAvailable.isSupportSuperGroupChannel()` / `isSupportBroadcastChannel()` is `false`, matching
+   the non-Liquid-Glass code path. When only group channels are available, the menu is omitted
+  entirely and the tap falls back to the standard create-channel action. (CLNP-8523) (#1412)
+    - Added `SBUGroupChannelListModuleHeaderDelegate.groupChannelListModuleShouldEnableCreateChann
+  elTypeSelector(_:)` — new delegate method the header uses to query whether the type selector is
+  enabled. Has a default extension implementation returning `true`, so existing conformers are
+  unaffected.
+    - Added `SBUGroupChannelListViewController.groupChannelListModuleShouldEnableCreateChannelType
+  Selector(_:)` — default override that returns `enableCreateChannelTypeSelector`
 ### v3.35.2 (May 14, 2026)
 
 ### Added
-- UIKit and MessageTemplate logging is now routed through the shared `SendbirdLogger` (`Logger.uikit`, `Logger.messageTemplate`) and emitted in the unified Sendbird log format. (#1407)
-- `Log.info(...)` / `Log.warn(...)` / `Log.error(...)` helpers used throughout UIKit internals. (#1407)
+- UIKit and MessageTemplate logging is now routed through the shared `SendbirdLogger` (`Logger.uikit`, `Logger.messageTemplate`) and emitted in the unified Sendbird log format.
+- `Log.info(...)` / `Log.warn(...)` / `Log.error(...)` helpers used throughout UIKit internals.
 
 ### Deprecated
-- `SendbirdUI.setLogLevel(_:)` (both the single `LogType` and `[LogType]` bitmask variants) — use `SendbirdLogger.setLevel(_:)` or `SendbirdLogger.setLevel(_:for: .uikit)` instead. Existing calls are forwarded to a compatibility setter and continue to work. (#1407)
+- `SendbirdUI.setLogLevel(_:)` (both the single `LogType` and `[LogType]` bitmask variants) — use `SendbirdLogger.setLevel(_:)` or `SendbirdLogger.setLevel(_:for: .uikit)` instead. Existing calls are forwarded to a compatibility setter and continue to work.
 
 ### Changed
-- `SBULog.logType` is no longer a local bitmask flag; it reads/writes through `SendbirdLogger` as the single source of truth. (#1407)
-- Legacy `LogType` bitmask `{none, error, warning, info, all}` maps to `AuthLogLevel` as `none / warning / error / info`. UIKit does not produce `verbose` or `debug` output. (#1407)
-- Once `SendbirdLogger.setLevel(...)` has been called, `SendbirdUI.setLogLevel(_:)` is ignored. (#1407)
-
-### v3.35.2 (May 14, 2026)
-
-### Added
-- UIKit and MessageTemplate logging is now routed through the shared `SendbirdLogger` (`Logger.uikit`, `Logger.messageTemplate`) and emitted in the unified Sendbird log format. (#1407)
-- `Log.info(...)` / `Log.warn(...)` / `Log.error(...)` helpers used throughout UIKit internals. (#1407)
-
-### Deprecated
-- `SendbirdUI.setLogLevel(_:)` (both the single `LogType` and `[LogType]` bitmask variants) — use `SendbirdLogger.setLevel(_:)` or `SendbirdLogger.setLevel(_:for: .uikit)` instead. Existing calls are forwarded to a compatibility setter and continue to work. (#1407)
-
-### Changed
-- `SBULog.logType` is no longer a local bitmask flag; it reads/writes through `SendbirdLogger` as the single source of truth. (#1407)
-- Legacy `LogType` bitmask `{none, error, warning, info, all}` maps to `AuthLogLevel` as `none / warning / error / info`. UIKit does not produce `verbose` or `debug` output. (#1407)
-- Once `SendbirdLogger.setLevel(...)` has been called, `SendbirdUI.setLogLevel(_:)` is ignored. (#1407)
+- `SBULog.logType` is no longer a local bitmask flag; it reads/writes through `SendbirdLogger` as the single source of truth.
+- Legacy `LogType` bitmask `{none, error, warning, info, all}` maps to `AuthLogLevel` as `none / warning / error / info`. UIKit does not produce `verbose` or `debug` output.
+- Once `SendbirdLogger.setLevel(...)` has been called, `SendbirdUI.setLogLevel(_:)` is ignored.
 
 ### v3.35.1 (Apr 24, 2026)
 
